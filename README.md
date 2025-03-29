@@ -4,47 +4,87 @@
 <head>
   <meta charset="UTF-8">
   <title>Registro de Celular</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
       padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
 
     .form-container {
       background: white;
-      padding: 20px 30px;
+      padding: 30px;
       max-width: 400px;
-      margin: auto;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
     }
 
-    input, button {
-      width: 100%;
-      padding: 10px;
+    .form-container:hover {
+      transform: scale(1.02);
+    }
+
+    h2 {
+      text-align: center;
+      color: #0072ff;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
       margin-top: 10px;
-      border-radius: 5px;
+      display: block;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border-radius: 8px;
       border: 1px solid #ccc;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #0072ff;
+      outline: none;
     }
 
     button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 8px;
+      border: none;
       background-color: #25D366;
       color: white;
       font-weight: bold;
-      border: none;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     button:hover {
       background-color: #1ebe5d;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #555;
     }
   </style>
 </head>
 <body>
 
   <div class="form-container">
-    <h2>Registro de Dispositivo</h2>
+    <h2><i class="fas fa-mobile-alt"></i> Registro de Dispositivo</h2>
     <form id="formularioWhatsapp">
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" name="nombre" required>
@@ -54,33 +94,20 @@
 
       <button type="submit">Enviar por WhatsApp</button>
     </form>
+    <div class="footer">© 2025 Custom Covers</div>
   </div>
 
   <script>
     document.getElementById("formularioWhatsapp").addEventListener("submit", function(e){
       e.preventDefault();
 
-      const nombre = document.getElementById("nombre").value.trim();
-      const modelo = document.getElementById("modelo").value.trim();
+      const nombre = document.getElementById("nombre").value;
+      const modelo = document.getElementById("modelo").value;
 
-      if (!nombre || !modelo) {
-        alert("Por favor, completa todos los campos.");
-        return;
-      }
-
-      const numeroDestino = "8295135915"; // Número con código de país sin "+" ni espacios
+      const numeroDestino = "8295135915"; // Asegúrate de que este número sea correcto
       const mensaje = `Hola, me llamo ${nombre} y tengo un celular modelo ${modelo}.`;
+      const enlaceWhatsapp = `https://wa.me/${numeroDestino}?text=${encodeURIComponent(mensaje)}`;
 
-      let enlaceWhatsapp;
-      if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-        // WhatsApp en iPhone
-        enlaceWhatsapp = `whatsapp://send?phone=${numeroDestino}&text=${encodeURIComponent(mensaje)}`;
-      } else {
-        // WhatsApp Web en otros dispositivos
-        enlaceWhatsapp = `https://api.whatsapp.com/send?phone=${numeroDestino}&text=${encodeURIComponent(mensaje)}`;
-      }
-
-      // Abrir el enlace de WhatsApp
       window.open(enlaceWhatsapp, "_blank");
     });
   </script>
